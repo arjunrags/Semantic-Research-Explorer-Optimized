@@ -74,7 +74,7 @@ class GraphEdge(Base):
     target_id = Column(String(64), nullable=False)
     edge_type = Column(String(32), nullable=False)  # citation|similarity|coauthor|membrain
     weight = Column(Float, default=1.0)
-    metadata = Column(JSON, default=dict)
+    edge_metadata = Column("metadata", JSON, default=dict)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     __table_args__ = (

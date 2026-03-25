@@ -22,6 +22,17 @@ class Base(DeclarativeBase):
     pass
 
 
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    email = Column(String(255), unique=True, index=True, nullable=False)
+    hashed_password = Column(String(255), nullable=False)
+    name = Column(String(255))
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    is_active = Column(Boolean, default=True)
+
+
 class Paper(Base):
     __tablename__ = "papers"
 
@@ -74,7 +85,7 @@ class GraphEdge(Base):
     target_id = Column(String(64), nullable=False)
     edge_type = Column(String(32), nullable=False)  # citation|similarity|coauthor|membrain
     weight = Column(Float, default=1.0)
-    metadata = Column(JSON, default=dict)
+    edge_metadata = Column(JSON, default=dict)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     __table_args__ = (

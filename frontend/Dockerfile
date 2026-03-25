@@ -1,7 +1,7 @@
 FROM node:20-alpine as builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 COPY . .
 ARG VITE_API_URL=http://localhost:8000
 ARG VITE_WS_URL=ws://localhost:8000
